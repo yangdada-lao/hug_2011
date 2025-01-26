@@ -248,7 +248,7 @@
         <div class="message" id="messageContainer"></div>
     </div>
     <footer>
-        <p id="footerText">© 2025 制作人: WUXAN</p>
+        <p id="footerText">© 2025 制作人: hug_2011</p>
     </footer>
     <script>
         // JavaScript 代码保持不变
@@ -265,10 +265,10 @@
         });
 
         function showValidation() {
-            const userInput = prompt("请输入作者的名字:");
-            if (userInput === "WUXAN") {
+            const userInput = prompt("作者的名字:");
+            if (userInput === "hug_2011") {
                 alert("谢谢啦");
-                window.location.href = "https://www.example.com"; // 退出网站到指定链接
+                window.location.href = "https://yangdada-lao.github.io/"; // 退出网站到指定链接
             } else {
                 alert("答错啦");
                 window.location.href = "https://www.example.com"; // 退出网站到指定链接
@@ -313,13 +313,13 @@
             // 构建 API 请求链接
             const apiUrl = `https://api.kxzjoker.cn/API/jiexi_video_2.php?url=${encodeURIComponent(url)}`;
             fetch(apiUrl)
-                .then(response => {
+                。then(response => {
                     if (!response.ok) {
                         throw new Error("无法连接到解析服务");
                     }
                     return response.json();
                 })
-                .then(data => {
+                。then(data => {
                     loadingContainer.style.display = "none"; // 隐藏加载动画
                     if (data.success && data.data.video_url) {
                         const videoPlayer = document.getElementById("videoPlayer");
@@ -330,7 +330,7 @@
                         messageContainer.classList.add("message");
                     }
                 })
-                .catch(error => {
+                。catch(error => {
                     loadingContainer.style.display = "none";
                     messageContainer.textContent = error.message || "请求失败，请稍后重试。";
                     messageContainer.classList.add("message");
