@@ -277,7 +277,7 @@
         <div class="message" id="messageContainer"></div>
     </div>
     <footer>
-        <p id="footerText">© 2025 制作人: WUXAN</p>
+        <p id="footerText">© 2025 制作人: hug_2011</p>
     </footer>
     <script>
         // JavaScript 代码优化
@@ -295,7 +295,7 @@
 
         function showValidation() {
             const userInput = prompt("请输入作者的名字:");
-            if (userInput === "WUXAN") {
+            if (userInput === "hug_2011") {
                 alert("谢谢啦");
                 window.location.href = "https://www.example.com";
             } else {
@@ -341,13 +341,13 @@
             document.getElementById("videoPlayer").src = "";
             const apiUrl = `https://api.kxzjoker.cn/API/jiexi_video_2.php?url=${encodeURIComponent(url)}`;
             fetch(apiUrl)
-                .then(response => {
+                。then(response => {
                     if (!response.ok) {
                         throw new Error("无法连接到解析服务");
                     }
                     return response.json();
                 })
-                .then(data => {
+                。then(data => {
                     loadingContainer.style.display = "none";
                     if (data.success && data.data.video_url) {
                         const videoPlayer = document.getElementById("videoPlayer");
@@ -360,7 +360,7 @@
                         messageContainer.textContent = data.message || "解析失败，请检查链接或稍后重试。";
                     }
                 })
-                .catch(error => {
+                。catch(error => {
                     loadingContainer.style.display = "none";
                     messageContainer.textContent = error.message || "请求失败，请稍后重试。";
                 });
