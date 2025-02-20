@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>去水印工具</title>
+    <title>解析工具</title>
     <meta name="description" content="一个简洁高效的去水印工具，支持多种视频平台。">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <style>
@@ -72,6 +72,24 @@
             color: var(--text-color);
             opacity: 0.9;
             margin-bottom: 20px;
+        }
+
+        .avatar {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            background-color: var(--container-background);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .input-group {
@@ -175,42 +193,39 @@
             animation-delay: 1.5s;
         }
 
-        .custom-background-button {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: none;
-            border-radius: 6px;
-            padding: 8px 15px;
-            font-size: 0.9em;
-            cursor: pointer;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .custom-background-button:hover {
-            background-color: rgba(255, 255, 255, 1);
-            transform: scale(1.05);
-        }
-
-        footer {
-            background-color: rgba(244, 244, 249, 0);
-            padding: 10px;
+        .default-text {
             text-align: center;
+            font-size: 1.2em;
+            color: var(--text-color);
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        /* 音乐播放组件样式 */
+        .music-player {
             width: 100%;
-            font-size: 12px;
-            margin-top: auto;
+            max-width: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
             opacity: 0;
             animation: fadeIn 1s forwards;
             animation-delay: 2s;
         }
 
-        footer p {
-            margin: 0;
-            color: var(--text-color);
+        .music-player audio {
+            width: 100%;
+            height: 50px;
+            background-color: var(--container-background);
+            border: none;
+            border-radius: 8px;
+            outline: none;
         }
 
+        /* 响应式设计 */
         @media (max-width: 600px) {
             h1 {
                 font-size: 1.5em;
@@ -244,6 +259,13 @@
                 padding: 15px;
             }
 
+            .avatar {
+                width: 50px;
+                height: 50px;
+                top: 10px;
+                left: 10px;
+            }
+
             .custom-background-button {
                 top: 10px;
                 right: 10px;
@@ -255,13 +277,16 @@
 </head>
 <body>
     <div class="container">
+        <div class="avatar">
+            <img id="avatarImage" src="https://api.yujn.cn/api/gzl_ACG.php?type=image&form=头像" alt="头像">
+        </div>
         <button class="custom-background-button" onclick="uploadBackground()">背</button>
         <header>
             <h1>花有重开日 人无再少年</h1>
             <h2>⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄</h2>
         </header>
         <div class="input-group">
-            <input type="text" id="mediaUrl" placeholder="请输入媒体链接" />
+            <input type="text" id="mediaUrl" placeholder="投喂" />
             <div class="button-group">
                 <button class="button parse-button" onclick="parseMedia()">解析</button>
                 <button class="button prompt-button" onclick="showPrompt()">适配</button>
@@ -275,9 +300,17 @@
             <video id="videoPlayer" controls autoplay playsinline>您的浏览器不支持视频播放。</video>
         </div>
         <div class="message" id="messageContainer"></div>
+        <div id="defaultText" class="default-text">（｀へ´）我要吃链接</div>
+        <!-- 音乐播放组件 -->
+        <div class="music-player" id="musicPlayerContainer">
+            <audio id="musicPlayer" controls>
+                <source src="http://api.yujn.cn/api/sjwyy.php?type=mp3" type="audio/mpeg">
+                您的浏览器不支持音频播放。
+            </audio>
+        </div>
     </div>
     <footer>
-        <p id="footerText">© 2025 制作人: WUXAN</p>
+        <p id="footerText">© 2025 制作人: hub_2011</p>
     </footer>
     <script>
         // JavaScript 代码优化
@@ -295,17 +328,17 @@
 
         function showValidation() {
             const userInput = prompt("请输入作者的名字:");
-            if (userInput === "WUXAN") {
-                alert("谢谢啦");
-                window.location.href = "https://www.example.com";
+            if (userInput === "hub_2011") {
+                alert("答对啦，上奖励");
+                window.location.href = "http://api.yujn.cn/api/zzxjj.php?type=video";
             } else {
-                alert("答错啦");
-                window.location.href = "https://www.example.com";
+                alert("答错啦，上龙图");
+                window.location.href = "https://api.yujn.cn/api/long.php?type=image";
             }
         }
 
         function showPrompt() {
-            alert("链接支持抖音、快手、火山视频、西瓜视频、皮皮虾、秒拍、头条视频、腾讯微视、美图秀秀、美拍、微博、小红书、网易云（目前只支持视频类解析）。");
+            alert("链接支持抖音、快手、火山视频、西瓜视频、皮皮虾、秒拍、头条视频、腾讯微视、美图秀秀、美拍、微博、小红书、网易云（目前只支持视频类解析）");
         }
 
         function uploadBackground() {
@@ -331,8 +364,9 @@
             const loadingContainer = document.getElementById("loadingContainer");
             const messageContainer = document.getElementById("messageContainer");
             const videoViewer = document.getElementById("videoViewer");
+            const defaultText = document.getElementById("defaultText");
             if (!url) {
-                alert("请输入链接");
+                alert("链接炫我嘴里");
                 return;
             }
             loadingContainer.style.display = "block";
@@ -356,13 +390,21 @@
                         videoPlayer.onloadeddata = () => {
                             videoPlayer.style.opacity = 1;
                         };
+                        // 隐藏默认文字
+                        defaultText.style.display = "none";
                     } else {
-                        messageContainer.textContent = data.message || "解析失败，请检查链接或稍后重试。";
+                        // 显示识别失败提示
+                        messageContainer.textContent = "失败了啦";
+                        // 显示默认文字
+                        defaultText.textContent = "(´- へ -、)";
                     }
                 })
                 .catch(error => {
                     loadingContainer.style.display = "none";
-                    messageContainer.textContent = error.message || "请求失败，请稍后重试。";
+                    // 显示识别失败提示
+                    messageContainer.textContent = "失败了啦";
+                    // 显示默认文字
+                    defaultText.textContent = "(´- へ -、)";
                 });
         }
     </script>
