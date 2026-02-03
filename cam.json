@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "name": "评论区自动全展开",
+    "id": "comment_auto_expand",
+    "version": "1.0.0",
+    "author": "基于Bilibili-Evolved拆解适配",
+    "description": "自动展开评论区所有折叠内容，包括长评论、楼中楼、热评折叠区，无需手动点击"
+  },
+  "trigger": {
+    "event": "comment_load", // 评论区加载时触发（BiliPai原生事件）
+    "priority": 70
+  },
+  "filters": [], // 无过滤，所有视频评论加载均执行
+  "actions": [
+    { "type": "expand_comment", "params": { "all": true } }, // 原生动作：展开全部折叠评论
+    { "type": "toast", "params": { "message": "评论区已自动全展开", "duration": 1500 } } // 轻量提示，可删除
+  ]
+}
