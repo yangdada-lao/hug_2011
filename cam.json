@@ -1,18 +1,45 @@
 {
-  "meta": {
-    "name": "评论区自动全展开",
-    "id": "comment_auto_expand",
-    "version": "1.0.0",
-    "author": "基于Bilibili-Evolved拆解适配",
-    "description": "自动展开评论区所有折叠内容，包括长评论、楼中楼、热评折叠区，无需手动点击"
-  },
-  "trigger": {
-    "event": "comment_load", // 评论区加载时触发（BiliPai原生事件）
-    "priority": 70
-  },
-  "filters": [], // 无过滤，所有视频评论加载均执行
-  "actions": [
-    { "type": "expand_comment", "params": { "all": true } }, // 原生动作：展开全部折叠评论
-    { "type": "toast", "params": { "message": "评论区已自动全展开", "duration": 1500 } } // 轻量提示，可删除
-  ]
+    "id": "custom_preference_filter",
+    "name": "个性化偏好筛选器",
+    "description": "优先展示高赞长视频，屏蔽指定UP主及低互动内容",
+    "version": "1.1.0",
+    "author": "插件开发者",
+    "type": "feed",
+    "rules": [
+        {
+            "field": "owner.mid",
+            "op": "in",
+            "value": [123456, 789012, 345678],
+            "action": "hide"
+        },
+        {
+            "condition": {
+                "and": [
+                    { "field": "stat.view", "op": "gt", "value": 10000 },
+                    { "field": "stat.like", "op": "lt", "value": "${stat.view}*0.01" }
+                ]
+            },
+            "action": "hide"
+        },
+        {
+            "condition": {
+                "and": [
+                    { "field": "duration", "op": "gt", "value": 600 },
+                    { "field": "stat.like", "op": "ge", "value": 100000 }
+                ]
+            },
+            "action": "highlight",
+            "style": {
+                "color": "#FF6B6B",
+                "bold": true,
+                "scale": 1.1
+            }
+        },
+        {
+            "field": "title",
+            "op": "contains",
+            "value": ["抽奖", "互赞", "关注", "求赞", "拉新"],
+            "action": "hide"
+        }
+    ]
 }
